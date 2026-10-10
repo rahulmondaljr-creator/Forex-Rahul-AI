@@ -122,5 +122,34 @@ function loadChart(pair) {
 }
 </script>
 
+  <div class="card">
+  <h2>🤖 Forex Rahul AI Analysis</h2>
+
+  <p>Market: <b id="aMarket">EUR/USD</b></p>
+  <p>Timeframe: <b id="aTime">5 Minutes</b></p>
+  <p>Trend: <b id="aTrend">Analyzing...</b></p>
+  <p>Support: <b id="aSupport">--</b></p>
+  <p>Resistance: <b id="aResistance">--</b></p>
+  <p>Signal: <b id="aSignal">WAIT</b></p>
+
+  <button onclick="analyzeMarket()">Analyze Market</button>
+  <p id="aNote">Real candle data connection required for reliable analysis.</p>
+</div>
+
+<script>
+function analyzeMarket() {
+  const pair = document.getElementById("pair").value;
+  const timeframe = document.getElementById("chartTitle").textContent;
+
+  document.getElementById("aMarket").textContent = pair;
+  document.getElementById("aTime").textContent = timeframe;
+  document.getElementById("aTrend").textContent = "Data not connected";
+  document.getElementById("aSupport").textContent = "--";
+  document.getElementById("aResistance").textContent = "--";
+  document.getElementById("aSignal").textContent = "WAIT";
+  document.getElementById("aNote").textContent =
+    "Connect a real Forex candle-data API to calculate actual indicators and signals.";
+}
+</script>
 </body>
 </html>
