@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>RAHUL QX PRO — LIVE</title>
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*{box-sizing:border-box}
+body{background:#0b1220;color:#fff;font-family:Arial,sans-serif;margin:0;padding:12px 12px 84px;max-width:640px;margin-left:auto;margin-right:auto}
+h1{color:#00e5a0;text-align:center;margin:4px 0;font-size:22px}
+h2{font-size:17px;margin:0 0 8px}
+.card{background:#172338;border-radius:12px;padding:14px;margin:10px 0}
+.pill{display:inline-block;padding:6px 16px;border-radius:20px;font-weight:bold;font-size:13px}
+.live{background:#0e3d2c;color:#00e5a0;border:1px solid #00e5a0}
+.off{background:#3d1520;color:#ff5b6a;border:1px solid #ff5b6a}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:10px 6px;border-bottom:1px solid #24344f;text-align:left}
+tr.hl td{background:#0e3d2c}
+tr.selRow{cursor:pointer}
+tr.selRow:active td{background:#1d2f52}
+.up{color:#00e5a0}.dn{color:#ff5b6a}.call{color:#00e5a0}.put{color:#ff5b6a}.wait{color:#ffb020}
+.big{font-size:32px;font-weight:bold}
+iframe{width:100%;height:360px;border:0;border-radius:8px}
+small{color:#8fa3c0}
+.center{text-align:center}
+select,button,input{padding:12px;border-radius:8px;border:none;font-size:16px;margin:5px 0}
+input,select{width:100%}
+button{background:#00e5a0;cursor:pointer;font-weight:bold}
+button.secondary{background:#2b3a5c;color:#fff}
+button.mini{padding:6px 10px;font-size:13px;margin:2px}
+.hist div{padding:8px;border-bottom:1px solid #24344f;font-size:14px}
+.rowflex{display:flex;gap:8px}
+.rowflex button{flex:1}
+.grad{background:linear-gradient(135deg,#0b1220,#172338);border:1px solid #00e5a0}
+.avatar{width:84px;height:84px;border-radius:50%;background:#24344f;display:inline-flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden;border:2px solid #00e5a0}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.bar{background:#0b1220;border-radius:8px;height:12px;margin-top:6px}
+.bar>div{height:12px;border-radius:8px;background:linear-gradient(90deg,#ff5b6a,#ffb020,#00e5a0)}
+.scanBox{border:2px dashed #2f4a6b;border-radius:14px;padding:24px 16px;text-align:center;color:#8fa3c0;background:#0e1830;display:block;cursor:pointer}
+.scanIcon{width:56px;height:56px;border-radius:50%;background:#122a4d;border:1px solid #2f4a6b;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:26px}
+.scanBox input{display:none}
+#scanImg{max-width:100%;border-radius:8px;display:none;margin:10px auto}
+.verdict{font-size:26px;font-weight:bold;margin:8px 0}
+.reasons li{margin:6px 0;font-size:14px}
+.chip{display:inline-block;background:#24344f;border-radius:16px;padding:6px 14px;margin:4px;font-size:14px;cursor:pointer}
+.chip.sel{background:#00e5a0;color:#0b1220;font-weight:bold}
+/* TABS */
+.tabpage{display:none}
+.tabpage.active{display:block}
+.tabbar{position:fixed;bottom:0;left:0;right:0;background:#0e1830;border-top:1px solid #24344f;display:flex;z-index:50;max-width:640px;margin:0 auto}
+.tabbar button{flex:1;background:none;border:none;color:#8fa3c0;padding:8px 2px 10px;font-size:11px;font-weight:bold}
+.tabbar button.active{color:#00e5a0}
+.tabbar .ic{display:block;font-size:20px;margin-bottom:2px}
+.back{background:#2b3a5c;color:#fff}
+.mktBig{font-size:34px;font-weight:bold}
+.detailCard{background:#0e1830;border:1px solid #24344f}
+.topbar{background:linear-gradient(135deg,#0e1830 0%,#152a4a 60%,#0e3d2c 130%);border:1px solid #1e2f52;border-radius:16px;padding:14px 10px 12px;margin-bottom:12px;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.tabbar button.active{color:#00e5a0;background:#0e3d2c;border-radius:12px 12px 0 0}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lock" style="display:none">
+  <div class="card grad center" style="padding:30px 16px;margin-top:40px">
+    <div style="font-size:44px">⚡</div>
+    <h1>RAHUL QX PRO</h1>
+    <p style="color:#8fa3c0">Premium Members Only</p>
+    <input id="codeInput" placeholder="ENTER ACCESS CODE" style="text-align:center;letter-spacing:2px;text-transform:uppercase">
+    <button onclick="tryUnlock()" style="width:100%">🔓 UNLOCK APP</button>
+    <p id="lockMsg" style="color:#ff5b6a;min-height:18px"></p>
+    <hr style="border-color:#24344f">
+    <p><small>No code? Get instant access:</small></p>
+    <button class="secondary" style="width:100%" onclick="location.href='https://t.me/imrahulmondal'">☎️ Contact @imrahulmondal</button>
+    <p style="margin-top:12px"><small>⏳ Trial ₹999 &nbsp;·&nbsp; 🥈 Weekly ₹4,999 &nbsp;·&nbsp; 🥇 Monthly ₹9,999<br>✅ Auto + Manual signals &nbsp;·&nbsp; 🛡️ News Guard &nbsp;·&nbsp; 🤖 16-point AI filter</small></p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none">
+  <div class="topbar">
+    <h1 style="margin:2px 0 8px;text-shadow:0 2px 10px rgba(0,229,160,.35);display:flex;align-items:center;justify-content:center;gap:8px"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#00e5a0" stroke-width="2" stroke-linecap="round"><path d="M7 3v3M7 18v3"/><rect x="5" y="6" width="4" height="12" rx="1" fill="#00e5a0" stroke="none"/><path d="M12 5v2M12 17v2"/><rect x="10" y="7" width="4" height="10" rx="1" fill="#ff5b6a" stroke="none"/><path d="M17 2v4M17 16v2"/><rect x="15" y="6" width="4" height="10" rx="1" fill="#00e5a0" stroke="none" opacity=".6"/></svg><span>RAHUL QX PRO LIVE</span></h1>
+    <p class="center" style="margin:0"><span id="status" class="pill off">CHECKING...</span></p>
+  </div>
+
+  <!-- TAB: SIGNAL -->
+  <section id="tab-signal" class="tabpage active">
+    <div class="card">
+      <h2>📡 Latest Signal</h2>
+      <div id="sigBox"><small>Loading...</small></div>
+    </div>
+    <div class="card">
+      <h2>🎯 Manual Signal <small>(momentum engine)</small></h2>
+      <p style="margin:2px 0 6px"><small>Pick pair + expiry — engine reads live price momentum (wait ~3 min after opening app so it can collect ticks)</small></p>
+      <select id="manPair"></select>
+      <select id="manExp"><option value="1">1 minute expiry</option><option value="5" selected>5 minutes expiry</option><option value="15">15 minutes expiry</option></select>
+      <button onclick="manualSignal()" style="width:100%">⚡ GET SIGNAL NOW</button>
+      <div id="manOut" style="margin-top:6px"></div>
+      <hr style="border-color:#24344f;margin:12px 0">
+      <h2 style="font-size:15px;margin:0 0 6px">📓 Manual Trades — <span id="manToday" style="color:#00e5a0">Today: 0W/0L</span></h2>
+      <div class="hist" id="mhist"><div><small>No manual trades yet.</small></div></div>
+    </div>
+    <div class="card">
+      <h2>🕘 Bot Signal History <small id="histStats"></small></h2>
+      <div class="hist" id="hist"><div><small>No signals captured yet on this device.</small></div></div>
+    </div>
+  </section>
+
+  <!-- TAB: MARKETS -->
+  <section id="tab-markets" class="tabpage">
+    <div id="mktList">
+      <div class="card">
+        <h2>💹 All Markets <small>(Quotex live)</small></h2>
+        <table id="priceTable"><tr><td><small>Loading...</small></td></tr></table>
+        <p class="center" style="margin:8px 0 0"><small>Tap a pair for full details + chart</small></p>
+      </div>
+    </div>
+    <div id="mktDetail" class="card detailCard" style="display:none">
+      <button class="mini back" onclick="closeMarket()">← Back to markets</button>
+      <h2 style="margin-top:10px" id="mktTitle">—</h2>
+      <div class="mktBig" id="mktPrice" style="color:#00e5a0">--</div>
+      <div id="mktChange" style="margin:4px 0 8px"></div>
+      <iframe id="mktChart"></iframe>
+      <p class="center" style="color:#ffb020;margin-top:8px"><small>⚠️ Chart = real-world market (reference). Trade on the QUOTEX PRICE above.</small></p>
+    </div>
+  </section>
+
+  <!-- TAB: SCANNER -->
+  <section id="tab-scanner" class="tabpage">
+    <div class="card">
+      <h2>🤖 AI Chart Scanner</h2>
+      <label class="scanBox" for="scanFile">
+        <div class="scanIcon">📷</div>
+        <b style="color:#fff;font-size:17px">Upload chart screenshot</b><br>
+        <small>Quotex chart photo — get UP / DOWN read with reasons</small>
+        <input type="file" id="scanFile" accept="image/*">
+      </label>
+      <div style="text-align:center"><img id="scanImg"><br><button class="mini" id="rmScanBtn" style="display:none;background:#3d1520;color:#ff5b6a" onclick="rmScanImg()">🗑 Remove image</button></div>
+      <p style="margin:8px 0 2px"><small>Which pair is this chart? (so the read can match its live momentum)</small></p>
+      <select id="scanPair"></select>
+      <div id="scanOut"></div>
+      <hr style="border-color:#24344f">
+      <p style="margin:8px 0 4px"><small>No screenshot? Pick the last 3 candles manually:</small></p>
+      <div class="center" id="candlePick"></div>
+      <button class="mini" onclick="analyzePicked()">🔍 Analyze Candles</button>
+      <p><small style="color:#ffb020">⚠️ Technical reading — not a guarantee. Always use money management.</small></p>
+    </div>
+  </section>
+
+  <!-- TAB: ANALYTICS -->
+  <section id="tab-analytics" class="tabpage">
+    <div class="card">
+      <h2>🏆 Today's Stats <small>(bot)</small></h2>
+      <div id="statsBox"><small>Loading...</small></div>
+      <hr style="border-color:#24344f;margin:10px 0">
+      <p style="margin:0">👥 Total visits: <b id="visTotal">--</b> · Today: <b id="visToday">--</b></p>
+    </div>
+    <div class="card">
+      <h2>📊 Chart — <span id="chartPair">EUR/USD</span></h2>
+      <p style="margin:4px 0">Quotex price: <b id="chartPrice" style="color:#00e5a0">--</b></p>
+      <iframe id="chart"></iframe>
+      <p class="center" style="color:#ffb020;margin-top:8px"><small>⚠️ Chart shows real-world market price — OTC pairs differ.</small></p>
+      <p class="center"><small id="updated">never updated</small> · <small id="refreshTick"></small></p>
+    </div>
+  </section>
+
+  <!-- TAB: ACCOUNT -->
+  <section id="tab-account" class="tabpage">
+    <div class="card">
+      <h2>👤 My Account</h2>
+      <div class="center">
+        <div class="avatar" id="avatarBox"><span id="avatarIcon">🙂</span></div>
+        <div style="margin-top:8px">
+          <label class="chip" style="background:#00e5a0;color:#0b1220">📷 Set Photo<input type="file" id="avatarFile" accept="image/*"></label>
+          <button class="mini" id="removePhotoBtn" style="display:none;background:#3d1520;color:#ff5b6a" onclick="removePhoto()">🗑 Remove photo</button>
+        </div>
+        <p style="margin:6px 0 0"><span class="chip" id="soundChip" onclick="toggleSound()">🔊 Sound: ON</span></p>
+        <input id="userName" placeholder="Your name" style="text-align:center;margin-top:8px">
+        <button class="mini" onclick="saveProfile()">💾 Save</button>
+        <p style="margin:10px 0 4px">Plan: <b id="planName" style="color:#00e5a0">--</b> · <span id="planDays">--</span></p>
+        <div class="bar"><div id="planBar" style="width:0%"></div></div>
+        <p><small id="planCode"></small></p>
+      </div>
+    </div>
+    <div class="rowflex">
+      <button class="secondary" onclick="shareApp()">📤 Share</button>
+      <button class="secondary" id="installBtn" style="display:none" onclick="installApp()">📲 Install</button>
+      <button class="secondary" onclick="lockNow()">🔒 Lock</button>
+    </div>
+    <p class="center" style="margin-top:14px"><small>📲 Signals also on Telegram<br>Support: @imrahulmondal · Trading involves risk</small></p>
+  </section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="tabbar">
+    <button data-tab="signal" class="active" onclick="switchTab('signal')"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></span>Signal</button>
+    <button data-tab="markets" onclick="switchTab('markets')"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3v3M7 18v3"/><rect x="5" y="6" width="4" height="12" rx="1" fill="currentColor" stroke="none"/><path d="M12 5v2M12 17v2"/><rect x="10" y="7" width="4" height="10" rx="1" fill="currentColor" stroke="none" opacity=".55"/><path d="M17 2v4M17 16v2"/><rect x="15" y="6" width="4" height="10" rx="1" fill="currentColor" stroke="none"/></svg></span>Markets</button>
+    <button data-tab="scanner" onclick="switchTab('scanner')"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 21 21"/><path d="M8 10.5h5M10.5 8v5"/></svg></span>Scanner</button>
+    <button data-tab="analytics" onclick="switchTab('analytics')"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V11M10 20V4M16 20v-7"/><path d="M3 20h18"/></svg></span>Analytics</button>
+    <button data-tab="account" onclick="switchTab('account')"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.7-5 8-5s6.5 1.5 8 5"/></svg></span>Account</button>
+  </nav>
+</div>
+
+<script>
+const USER = "rahulmondaljr-creator";
+const REPO = "Forex-Rahul-AI";
+const RAW_LIVE = "https://raw.githubusercontent.com/" + USER + "/" + REPO + "/main/live.json";
+const RAW_CODES = "https://raw.githubusercontent.com/" + USER + "/" + REPO + "/main/codes.json";
+let DATA = null, chartPair = "EUR/USD", lastSigTs = 0, refreshLeft = 30, deferredPrompt = null;
+let CODES = null, pickedCandles = [null, null, null], mktOpen = null;
+
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; document.getElementById("installBtn").style.display = "block"; });
+async function installApp(){ if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; document.getElementById("installBtn").style.display = "none"; } }
+function shareApp(){
+  const url = location.href.split("?")[0];
+  if(navigator.share){ navigator.share({title:"RAHUL QX PRO LIVE", text:"Live Quotex signal app — RAHUL QX PRO", url:url}).catch(()=>{}); }
+  else if(navigator.clipboard){ navigator.clipboard.writeText(url); alert("Link copied — share it!"); }
+}
+function lockNow(){ localStorage.removeItem("qx_code"); location.href = location.pathname; }
+function switchTab(name){
+  document.querySelectorAll(".tabpage").forEach(s => s.classList.remove("active"));
+  document.getElementById("tab-" + name).classList.add("active");
+  document.querySelectorAll(".tabbar button").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  window.scrollTo(0,0);
+}
+
+/* ---------- MARKET DETAIL ---------- */
+function openMarket(pair){
+  mktOpen = pair;
+  document.getElementById("mktList").style.display = "none";
+  document.getElementById("mktDetail").style.display = "block";
+  document.getElementById("mktTitle").textContent = pair;
+  document.getElementById("mktChart").src = "https://s.tradingview.com/widgetembed/?symbol=FX_IDC:" + pair.replace("/", "") + "&interval=5&theme=dark&style=1&locale=en";
+  setChart(pair);
+  renderMktDetail();
+  window.scrollTo(0,0);
+}
+function closeMarket(){
+  mktOpen = null;
+  document.getElementById("mktDetail").style.display = "none";
+  document.getElementById("mktList").style.display = "block";
+}
+function renderMktDetail(){
+  if(!mktOpen) return;
+  const p = DATA && DATA.prices ? DATA.prices[mktOpen] : null;
+  document.getElementById("mktPrice").textContent = p != null ? fmtPrice(p) : "--";
+  let chg = "";
+  if(p != null){
+    const prev = (()=>{ try{ return JSON.parse(localStorage.getItem("qx_prev") || "{}"); }catch(e){ return {}; } })();
+    if(prev[mktOpen] != null && prev[mktOpen] !== p){
+      chg = p > prev[mktOpen] ? "<span class='up'>▲ rising</span>" : "<span class='dn'>▼ falling</span>";
+    }
+  }
+  document.getElementById("mktChange").innerHTML = chg || "<small>waiting for next tick...</small>";
+}
+
+/* ---------- ACCESS ---------- */
+async function fetchJSON(url){ const r = await fetch(url + "?t=" + Date.now(), {cache:"no-store"}); if(!r.ok) throw new Error("HTTP " + r.status); return await r.json(); }
+function showLock(msg){
+  document.getElementById("app").style.display = "none";
+  document.getElementById("lock").style.display = "block";
+  if(msg) document.getElementById("lockMsg").textContent = msg;
+}
+function showApp(){
+  document.getElementById("lock").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  loadProfile(); loadPlan(); renderCandlePick(); visitors();
+  load(); setInterval(load, 30000); setInterval(tick, 1000);
+}
+async function checkAccess(){
+  const code = (localStorage.getItem("qx_code") || "").trim().toUpperCase();
+  if(!code){ showLock(); return; }
+  try{
+    CODES = await fetchJSON(RAW_CODES);
+    if(codeList().includes(code)){ showApp(); }
+    else { localStorage.removeItem("qx_code"); showLock("Code expired or invalid — contact @imrahulmondal"); }
+  }catch(e){ showLock("Verification failed — check internet and retry"); }
+}
+function codeList(){
+  if(!CODES) return [];
+  if(Array.isArray(CODES.codes)) return CODES.codes.map(x=>String(x).toUpperCase());
+  return Object.keys(CODES.codes).map(x=>x.toUpperCase());
+}
+function codeInfo(code){
+  if(!CODES) return null;
+  if(Array.isArray(CODES.codes)) return {plan:"MEMBER", days:30};
+  const key = Object.keys(CODES.codes).find(k=>k.toUpperCase()===code);
+  if(!key) return null;
+  const raw = CODES.codes[key];
+  if(typeof raw === "string") return {plan:raw, days:30};
+  return {plan:raw.plan || "MEMBER", days:raw.days || 30};
+}
+async function tryUnlock(){
+  const v = document.getElementById("codeInput").value.trim().toUpperCase();
+  if(!v) return;
+  document.getElementById("lockMsg").textContent = "Checking...";
+  try{
+    CODES = await fetchJSON(RAW_CODES);
+    if(codeList().includes(v)){
+      localStorage.setItem("qx_code", v);
+      if(!localStorage.getItem("qx_first_" + v)) localStorage.setItem("qx_first_" + v, Math.floor(Date.now()/1000));
+      showApp();
+    } else { document.getElementById("lockMsg").textContent = "❌ Wrong code. Contact @imrahulmondal"; }
+  }catch(e){ document.getElementById("lockMsg").textContent = "Network error — try again"; }
+}
+
+/* ---------- PROFILE ---------- */
+function loadProfile(){
+  try{
+    const p = JSON.parse(localStorage.getItem("qx_profile") || "{}");
+    if(p.name) document.getElementById("userName").value = p.name;
+    if(p.avatar){
+      document.getElementById("avatarBox").innerHTML = '<img src="' + p.avatar + '">';
+      document.getElementById("removePhotoBtn").style.display = "inline";
+    }
+  }catch(e){}
+  renderSoundChip();
+}
+function removePhoto(){
+  let p = {}; try{ p = JSON.parse(localStorage.getItem("qx_profile") || "{}"); }catch(e){}
+  delete p.avatar;
+  localStorage.setItem("qx_profile", JSON.stringify(p));
+  document.getElementById("avatarBox").innerHTML = '<span>🙂</span>';
+  document.getElementById("removePhotoBtn").style.display = "none";
+}
+function toggleSound(){
+  const m = localStorage.getItem("qx_mute") === "1";
+  localStorage.setItem("qx_mute", m ? "0" : "1");
+  renderSoundChip();
+}
+function renderSoundChip(){
+  const m = localStorage.getItem("qx_mute") === "1";
+  const c = document.getElementById("soundChip");
+  if(c) c.textContent = m ? "🔇 Sound: OFF" : "🔊 Sound: ON";
+}
+function saveProfile(){
+  let p = {};
+  try{ p = JSON.parse(localStorage.getItem("qx_profile") || "{}"); }catch(e){}
+  p.name = document.getElementById("userName").value.trim();
+  localStorage.setItem("qx_profile", JSON.stringify(p));
+  alert("Saved!");
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const af = document.getElementById("avatarFile");
+  if(af) af.addEventListener("change", e => {
+    const f = e.target.files[0]; if(!f) return;
+    const rd = new FileReader();
+    rd.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement("canvas"); c.width = 128; c.height = 128;
+        const x = c.getContext("2d");
+        const s = Math.min(img.width, img.height);
+        x.drawImage(img, (img.width-s)/2, (img.height-s)/2, s, s, 0, 0, 128, 128);
+        const url = c.toDataURL("image/jpeg", 0.8);
+        let p = {}; try{ p = JSON.parse(localStorage.getItem("qx_profile") || "{}"); }catch(err){}
+        p.avatar = url;
+        localStorage.setItem("qx_profile", JSON.stringify(p));
+        document.getElementById("avatarBox").innerHTML = '<img src="' + url + '">';
+      };
+      img.src = ev.target.result;
+    };
+    rd.readAsDataURL(f);
+  });
+  const sf = document.getElementById("scanFile");
+  if(sf) sf.addEventListener("change", e => {
+    const f = e.target.files[0]; if(!f) return;
+    const rd = new FileReader();
+    rd.onload = ev => {
+      const img = new Image();
+      img.onload = () => scanImage(img);
+      img.src = ev.target.result;
+      const prev = document.getElementById("scanImg");
+      prev.src = ev.target.result; prev.style.display = "inline-block";
+      document.getElementById("rmScanBtn").style.display = "inline-block";
+    };
+    rd.readAsDataURL(f);
+  });
+});
+
+/* ---------- PLAN ---------- */
+function loadPlan(){
+  const code = (localStorage.getItem("qx_code") || "").toUpperCase();
+  const info = codeInfo(code) || {plan:"MEMBER", days:30};
+  document.getElementById("planName").textContent = info.plan;
+  document.getElementById("planCode").textContent = "Code: " + code;
+  let first = parseInt(localStorage.getItem("qx_first_" + code) || "0");
+  if(!first){ first = Math.floor(Date.now()/1000); localStorage.setItem("qx_first_" + code, first); }
+  const total = (info.days || 30) * 86400;
+  const left = Math.max(0, total - (Math.floor(Date.now()/1000) - first));
+  const dLeft = Math.ceil(left / 86400);
+  document.getElementById("planDays").textContent = dLeft > 0 ? (dLeft + " days left") : "EXPIRED — renew";
+  document.getElementById("planBar").style.width = Math.max(0, Math.min(100, Math.round(100 * left / total))) + "%";
+}
+
+/* ---------- VISITORS ---------- */
+async function visitors(){
+  try{
+    const t = new Date().toISOString().slice(0,10);
+    const r1 = await fetch("https://api.counterapi.dev/v1/rahulqx-pro-app/total/up");
+    const j1 = await r1.json();
+    const r2 = await fetch("https://api.counterapi.dev/v1/rahulqx-pro-app/d" + t + "/up");
+    const j2 = await r2.json();
+    document.getElementById("visTotal").textContent = (j1 && j1.count != null) ? j1.count : "--";
+    document.getElementById("visToday").textContent = (j2 && j2.count != null) ? j2.count : "--";
+  }catch(e){ document.getElementById("visTotal").textContent = "--"; document.getElementById("visToday").textContent = "--"; }
+}
+
+/* ---------- AI SCANNER ---------- */
+function scanImage(img){
+  const w = 180, h = Math.max(40, Math.round(img.height / img.width * w));
+  const c = document.createElement("canvas"); c.width = w; c.height = h;
+  const x = c.getContext("2d", {willReadFrequently:true});
+  x.drawImage(img, 0, 0, w, h);
+  const d = x.getImageData(0, 0, w, h).data;
+  let leftG=0,leftR=0,rightG=0,rightR=0;
+  for(let col=0; col<w; col++){
+    for(let row=0; row<h; row++){
+      const i=(row*w+col)*4, r=d[i], g=d[i+1], b=d[i+2];
+      const green = g > r+25 && g > b+10, red = r > g+25 && r > b+10;
+      if(col < w/2){ if(green)leftG++; if(red)leftR++; } else { if(green)rightG++; if(red)rightR++; }
+    }
+  }
+  renderScan({leftG:leftG, leftR:leftR, rightG:rightG, rightR:rightR, src:"screenshot pixel scan"});
+}
+function renderCandlePick(){
+  const box = document.getElementById("candlePick");
+  box.innerHTML = "";
+  ["1st (oldest)","2nd","3rd (latest)"].forEach((lab, ci) => {
+    const wrap = document.createElement("div");
+    wrap.innerHTML = "<small>" + lab + "</small><br>";
+    ["GREEN","RED"].forEach(v => {
+      const s = document.createElement("span");
+      s.className = "chip" + (pickedCandles[ci] === v ? " sel" : "");
+      s.textContent = v === "GREEN" ? "🟢 সবুজ" : "🔴 লাল";
+      s.onclick = () => { pickedCandles[ci] = v; renderCandlePick(); };
+      wrap.appendChild(s);
+    });
+    box.appendChild(wrap);
+  });
+}
+function rmScanImg(){
+  document.getElementById("scanImg").style.display = "none";
+  document.getElementById("scanImg").src = "";
+  document.getElementById("scanOut").innerHTML = "";
+  document.getElementById("rmScanBtn").style.display = "none";
+  const f = document.getElementById("scanFile"); if(f) f.value = "";
+}
+function analyzePicked(){
+  if(pickedCandles.some(v => !v)){ document.getElementById("scanOut").innerHTML = "<p style='color:#ffb020'>Pick all 3 candles first.</p>"; return; }
+  const g = pickedCandles.filter(v => v === "GREEN").length;
+  renderScan({manual:pickedCandles.slice(), leftG:0, leftR:0, rightG:g, rightR:3-g, src:"3-candle pattern engine"});
+}
+function renderScan(a){
+  const out = document.getElementById("scanOut");
+  let verdict, cls, conf, reasons = [];
+  if(a.manual){
+    const m = a.manual;
+    if(m[0]==="GREEN" && m[1]==="GREEN" && m[2]==="GREEN"){ verdict="UP"; conf=62; reasons.push("Three green candles in a row — buyers fully in control (momentum continuation)."); reasons.push("Watch for exhaustion: if next candle has a long upper wick, expect reversal."); }
+    else if(m[0]==="RED" && m[1]==="RED" && m[2]==="RED"){ verdict="DOWN"; conf=62; reasons.push("Three red candles in a row — sellers fully in control."); reasons.push("Deeply sold: a small green candle next can start a pullback — don't chase late."); }
+    else if(m[2]==="GREEN" && m[1]==="RED"){ verdict="UP"; conf=55; reasons.push("Latest candle turned green after red — possible bullish rejection / buyers stepping in."); reasons.push("Confirmation: next candle should close above latest candle high."); }
+    else if(m[2]==="RED" && m[1]==="GREEN"){ verdict="DOWN"; conf=55; reasons.push("Latest candle turned red after green — sellers taking over."); reasons.push("Confirmation: next candle should close below latest candle low."); }
+    else { verdict="NEUTRAL"; conf=45; reasons.push("Mixed candles — no clear momentum. Best decision: WAIT for a clean setup."); }
+  } else {
+    const ls = a.rightG - a.rightR, rs = a.leftG - a.leftR;
+    if(ls > 8){ verdict="UP"; cls="call"; conf=Math.min(70, 52 + ls); reasons.push("Latest side of chart: green candle pixels dominate (" + a.rightG + " vs " + a.rightR + " red) — buyers active."); }
+    else if(ls < -8){ verdict="DOWN"; cls="put"; conf=Math.min(70, 52 - ls); reasons.push("Latest side of chart: red candle pixels dominate (" + a.rightR + " vs " + a.rightG + " green) — sellers active."); }
+    else { verdict="NEUTRAL"; cls="wait"; conf=48; reasons.push("Green and red pressure almost equal — range/choppy conditions."); reasons.push("Choppy market = most losses happen here. Waiting IS a position."); }
+    if(verdict !== "NEUTRAL"){
+      if((verdict==="UP" && rs < ls) || (verdict==="DOWN" && rs > ls)) reasons.push("Momentum is INCREASING vs the left side — trend gaining strength.");
+      else reasons.push("Momentum is WEAKER than the left side — possible exhaustion, use smaller size.");
+    }
+  }
+  if(!cls) cls = verdict === "UP" ? "call" : verdict === "DOWN" ? "put" : "wait";
+  const pairEl = document.getElementById("scanPair");
+  const pairName = pairEl && pairEl.value ? pairEl.value : "—";
+  let liveNote = "";
+  if(DATA && DATA.prices && pairName !== "—"){
+    const cur = DATA.prices[pairName];
+    const prevv = (()=>{ try{ return JSON.parse(localStorage.getItem("qx_prev") || "{}"); }catch(e){ return {}; } })();
+    if(cur != null && prevv[pairName] != null && prevv[pairName] !== cur){
+      liveNote = cur > prevv[pairName] ? "Pair's live price is RISING (▲)" : "Pair's live price is FALLING (▼)";
+    } else if(cur != null){ liveNote = "Pair live price: " + fmtPrice(cur); }
+  }
+  if(liveNote) reasons.push(liveNote + " — check it agrees with this reading before entry.");
+  out.innerHTML =
+    '<div class="verdict ' + cls + '">' + (verdict === "UP" ? "▲ UP" : verdict === "DOWN" ? "▼ DOWN" : "◆ NEUTRAL") + '</div>' +
+    '<p><b>' + esc(pairName) + '</b> · Confidence: <b>' + conf + '%</b> · ' + esc(a.src) + '</p>' +
+    '<ul class="reasons">' + reasons.map(r => "<li>" + esc(r) + "</li>").join("") + '</ul>' +
+    '<p><small style="color:#ffb020">Technical reading, not financial advice. Manage your risk.</small></p>';
+}
+
+/* ---------- MANUAL SIGNAL ENGINE ---------- */
+function tickHistUpdate(prices){
+  const nowMs = Date.now();
+  let th = {};
+  try{ th = JSON.parse(localStorage.getItem("qx_ticks") || "{}"); }catch(e){}
+  Object.keys(prices).forEach(k => {
+    const arr = th[k] || [];
+    const lastA = arr[arr.length - 1];
+    if(!lastA || nowMs - lastA.t > 25000){
+      arr.push({t: nowMs, p: prices[k]});
+      while(arr.length > 16) arr.shift();
+      th[k] = arr;
+    }
+  });
+  localStorage.setItem("qx_ticks", JSON.stringify(th));
+}
+function getManualHist(){ try{ return JSON.parse(localStorage.getItem("qx_mhist") || "[]"); }catch(e){ return []; } }
+function manualSignal(){
+  const pair = document.getElementById("manPair").value;
+  const exp = parseInt(document.getElementById("manExp").value);
+  const out = document.getElementById("manOut");
+  let th = {}; try{ th = JSON.parse(localStorage.getItem("qx_ticks") || "{}"); }catch(e){}
+  const arr = (th[pair] || []).filter(x => Date.now() - x.t < 900000);
+  if(arr.length < 5){
+    out.innerHTML = "<p class='wait'>⏳ Collecting price data... keep the app open 2-3 minutes, then try again.</p>";
+    return;
+  }
+  let ups = 0, downs = 0;
+  for(let i = 1; i < arr.length; i++){ if(arr[i].p > arr[i-1].p) ups++; else if(arr[i].p < arr[i-1].p) downs++; }
+  const net = (arr[arr.length-1].p - arr[0].p) / arr[0].p * 100;
+  const moves = ups + downs;
+  const ratio = moves ? Math.max(ups, downs) / moves : 0;
+  let dir, conf;
+  if(ups >= Math.max(2, downs * 1.4) && net > 0){ dir = "CALL"; conf = Math.round(52 + ratio * 30 + Math.min(Math.abs(net) * 500, 12)); }
+  else if(downs >= Math.max(2, ups * 1.4) && net < 0){ dir = "PUT"; conf = Math.round(52 + ratio * 30 + Math.min(Math.abs(net) * 500, 12)); }
+  else { dir = "WAIT"; conf = Math.round(38 + ratio * 18); }
+  conf = Math.min(conf, 88);
+  const h = getManualHist();
+  h.unshift({pair: pair, dir: dir, conf: conf, exp: exp, ts: Math.floor(Date.now()/1000), entry: arr[arr.length-1].p, result: null});
+  localStorage.setItem("qx_mhist", JSON.stringify(h.slice(0, 20)));
+  beep();
+  renderManual();
+  const cls = dir === "CALL" ? "call" : dir === "PUT" ? "put" : "wait";
+  const arrow = dir === "CALL" ? "▲" : dir === "PUT" ? "▼" : "◆";
+  out.innerHTML =
+    '<div class="big ' + cls + '" style="font-size:26px">' + arrow + ' ' + esc(dir) + '</div>' +
+    '<div><b>' + esc(pair) + '</b> · ' + exp + '-min expiry · Confidence <b>' + conf + '%</b></div>' +
+    '<div><small>Entry (Quotex live): <code>' + fmtPrice(arr[arr.length-1].p) + '</code> · Based on ' + arr.length + ' live ticks (' + ups + ' up / ' + downs + ' down)</small></div>' +
+    '<div><small style="color:#ffb020">Momentum reading — not a guarantee. Mark result below after expiry.</small></div>';
+}
+function markManualResult(idx, res){
+  const h = getManualHist();
+  if(!h[idx]) return;
+  h[idx].result = res;
+  localStorage.setItem("qx_mhist", JSON.stringify(h));
+  renderManual();
+}
+function renderManual(){
+  const h = getManualHist();
+  const box = document.getElementById("mhist");
+  if(!box) return;
+  const nowS = Math.floor(Date.now()/1000);
+  const dayStart = new Date(); dayStart.setHours(0,0,0,0);
+  let tw = 0, tl = 0;
+  h.forEach(x => { if(x.result === "w" && x.ts * 1000 >= dayStart.getTime()) tw++; if(x.result === "l" && x.ts * 1000 >= dayStart.getTime()) tl++; });
+  document.getElementById("manToday").textContent = "Today: " + tw + "W/" + tl + "L";
+  if(!h.length){ box.innerHTML = "<div><small>No manual trades yet.</small></div>"; return; }
+  box.innerHTML = h.map((x, i) => {
+    let rTxt = "", rBtns = "";
+    if(x.result === "w"){ rTxt = " ✅ WIN"; }
+    else if(x.result === "l"){ rTxt = " ❌ LOSS"; }
+    else {
+      const left = (x.ts + x.exp * 60) - nowS;
+      rTxt = left > 0 ? " ⏳ " + Math.floor(left/60) + "m" + (left%60) + "s" : "";
+      if(left <= 0) rBtns = ' <button class="mini" onclick="markManualResult(' + i + ','w')">WIN</button><button class="mini" onclick="markManualResult(' + i + ','l')">LOSS</button>';
+    }
+    const cls = x.dir === "CALL" ? "call" : x.dir === "PUT" ? "put" : "wait";
+    const t = new Date(x.ts * 1000).toLocaleTimeString();
+    return "<div><b class='" + cls + "'>" + esc(x.dir) + "</b> " + esc(x.pair) + " · " + esc(x.exp) + "m · " + esc(x.conf) + "% · " + t + rTxt + rBtns + "</div>";
+  }).join("");
+}
+
+/* ---------- SOUND ---------- */
+function beep(){
+  if(localStorage.getItem("qx_mute") === "1") return;
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 880;
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    o.start(); o.stop(ctx.currentTime + 0.4);
+  }catch(e){}
+}
+
+/* ---------- HELPERS ---------- */
+function fmtPrice(p){ if(p >= 1000) return p.toFixed(2); if(p >= 100) return p.toFixed(3); return p.toFixed(5); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function setChart(pair){
+  chartPair = pair;
+  document.getElementById("chartPair").textContent = pair;
+  document.getElementById("chart").src = "https://s.tradingview.com/widgetembed/?symbol=FX_IDC:" + pair.replace("/", "") + "&interval=5&theme=dark&style=1&locale=en";
+  updateChartPrice();
+}
+function updateChartPrice(){
+  const cp = DATA && DATA.prices ? DATA.prices[chartPair] : null;
+  document.getElementById("chartPrice").textContent = cp != null ? fmtPrice(cp) : "--";
+}
+
+/* ---------- HISTORY ---------- */
+function getHist(){ try{ return JSON.parse(localStorage.getItem("qx_hist") || "[]"); }catch(e){ return []; } }
+function pushHistory(sig){
+  const h = getHist();
+  if(h.length && h[0].ts === sig.ts) return;
+  h.unshift({pair:sig.pair, dir:sig.dir, score:sig.score, expmin:sig.expmin || 5, pattern:sig.pattern || "-", ts:sig.ts, result:null});
+  localStorage.setItem("qx_hist", JSON.stringify(h.slice(0, 10)));
+  beep();
+  renderHistory();
+}
+function markResult(idx, res){
+  const h = getHist();
+  if(!h[idx]) return;
+  h[idx].result = res;
+  localStorage.setItem("qx_hist", JSON.stringify(h));
+  renderHistory();
+}
+function renderHistory(){
+  const h = getHist();
+  const box = document.getElementById("hist");
+  if(!h.length){ box.innerHTML = "<div><small>No signals captured yet on this device.</small></div>"; document.getElementById("histStats").textContent = ""; return; }
+  let w = 0, l = 0;
+  box.innerHTML = h.map((x, i) => {
+    let rTxt = "", rBtns = "";
+    if(x.result === "w"){ w++; rTxt = " ✅ WIN"; }
+    else if(x.result === "l"){ l++; rTxt = " ❌ LOSS"; }
+    else {
+      const left = (x.ts + x.expmin * 60) - Math.floor(Date.now()/1000);
+      rTxt = left > 0 ? " ⏳ running" : "";
+      if(left <= 0) rBtns = ' <button class="mini" onclick="markResult(' + i + ',\'w\')">WIN</button><button class="mini" onclick="markResult(' + i + ',\'l\')">LOSS</button>';
+    }
+    const cls = x.dir === "CALL" ? "call" : x.dir === "PUT" ? "put" : "wait";
+    const t = new Date(x.ts * 1000).toLocaleTimeString();
+    return "<div><b class='" + cls + "'>" + esc(x.dir) + "</b> " + esc(x.pair) + " · " + esc(x.expmin) + "m · score " + esc(x.score != null ? x.score : "-") + " · " + t + rTxt + rBtns + "</div>";
+  }).join("");
+  const tot = w + l;
+  document.getElementById("histStats").textContent = tot ? (" · my " + w + "W/" + l + "L (" + Math.round(100*w/tot) + "%)") : "";
+}
+
+/* ---------- RENDER ---------- */
+function render(d){
+  DATA = d;
+  const now = Math.floor(Date.now()/1000);
+  const age = now - (d.updated_ts || 0);
+  const st = document.getElementById("status");
+  if(age < 360){ st.className = "pill live"; st.textContent = "🟢 LIVE · " + (d.mode === "OTC" ? "OTC MARKET" : "REAL MARKET"); }
+  else { st.className = "pill off"; st.textContent = "🔴 BOT OFFLINE · " + Math.floor(age/60) + " min ago"; }
+  document.getElementById("updated").textContent = "updated " + (d.updated || "?");
+
+  const s = d.latest_signal || {};
+  const box = document.getElementById("sigBox");
+  if(s.pair){
+    const dirCls = s.dir === "CALL" ? "call" : s.dir === "PUT" ? "put" : "wait";
+    const left = (s.ts + (s.expmin || 5) * 60) - now;
+    const expTxt = left > 0 ? ("⏳ " + Math.floor(left/60) + "m " + (left % 60) + "s left") : ("✔ expired " + Math.floor(-left/60) + "m ago");
+    box.innerHTML =
+      '<div class="big ' + dirCls + '">' + esc(s.dir || "WAIT") + '</div>' +
+      '<div style="font-size:18px;margin:6px 0"><b>' + esc(s.pair) + '</b> · ' + esc(s.kind || "") + '</div>' +
+      '<div>🎯 Score: <b>' + esc(s.score != null ? s.score : "-") + '</b>/16 · Pattern: ' + esc(s.pattern || "-") + '</div>' +
+      '<div>⏱ ' + (s.expmin || 5) + '-min expiry · ' + expTxt + '</div>';
+    if(chartPair !== s.pair) setChart(s.pair);
+    if(s.ts && s.ts !== lastSigTs){ lastSigTs = s.ts; pushHistory(s); }
+  } else {
+    box.innerHTML = "<small>No signal yet — bot is scanning. Wait for the next setup.</small>";
+  }
+  updateChartPrice();
+  renderMktDetail();
+
+  const prices = d.prices || {};
+  const prev = (()=>{ try{ return JSON.parse(localStorage.getItem("qx_prev") || "{}"); }catch(e){ return {}; } })();
+  let html = "<tr><th>Pair</th><th style='text-align:right'>Price</th></tr>";
+  Object.keys(prices).forEach(k => {
+    const hl = (s.pair === k) ? " class='hl'" : "";
+    let arrow = "";
+    if(prev[k] != null && prev[k] !== prices[k]) arrow = prices[k] > prev[k] ? " <span class='up'>▲</span>" : " <span class='dn'>▼</span>";
+    html += "<tr class='selRow'" + hl + " data-pair='" + esc(k) + "'><td>" + esc(k) + "</td><td style='text-align:right'><code>" + fmtPrice(prices[k]) + "</code>" + arrow + "</td></tr>";
+  });
+  const sp = document.getElementById("scanPair");
+  if(sp && sp.options.length === 0){
+    Object.keys(prices).forEach(k => {
+      const o = document.createElement("option");
+      o.value = k; o.textContent = k;
+      if(k === chartPair) o.selected = true;
+      sp.appendChild(o);
+    });
+  }
+  const mp = document.getElementById("manPair");
+  if(mp && mp.options.length === 0){
+    Object.keys(prices).forEach(k => {
+      const o = document.createElement("option");
+      o.value = k; o.textContent = k;
+      if(k === chartPair) o.selected = true;
+      mp.appendChild(o);
+    });
+  }
+  tickHistUpdate(prices);
+  renderManual();
+  document.getElementById("priceTable").innerHTML = html;
+  document.querySelectorAll(".selRow").forEach(r => { r.onclick = () => openMarket(r.getAttribute("data-pair")); });
+  localStorage.setItem("qx_prev", JSON.stringify(prices));
+
+  const st2 = d.stats || {};
+  const tot = (st2.wins || 0) + (st2.losses || 0);
+  const wr = tot ? Math.round(100 * st2.wins / tot) : 0;
+  document.getElementById("statsBox").innerHTML =
+    "✅ Wins: <b>" + (st2.wins || 0) + "</b> · ❌ Losses: <b>" + (st2.losses || 0) + "</b> · ➖ Ties: <b>" + (st2.ties || 0) + "</b><br>" +
+    "🏆 Win-rate: <b>" + wr + "%</b> (" + tot + " trades) · Today: <b>" + (st2.today_trades || 0) + "</b> trades";
+}
+
+function tick(){
+  refreshLeft = refreshLeft > 0 ? refreshLeft - 1 : 30;
+  document.getElementById("refreshTick").textContent = "next refresh " + refreshLeft + "s";
+  if(DATA) render(DATA);
+}
+
+async function load(){
+  try{
+    const d = await fetchJSON(RAW_LIVE);
+    refreshLeft = 30;
+    render(d);
+  }catch(e){
+    const st = document.getElementById("status");
+    st.className = "pill off";
+    st.textContent = "🔴 NO DATA — bot off or file missing";
+    document.getElementById("updated").textContent = "load failed: " + e.message;
+  }
+}
+
+/* service worker: auto-reload on update so app NEVER goes stale */
+let refreshing = false;
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.addEventListener("controllerchange", () => { if(!refreshing){ refreshing = true; location.reload(); } });
+  navigator.serviceWorker.register("sw.js").then(reg => {
+    reg.update().catch(() => {});
+    setInterval(() => { reg.update().catch(() => {}); }, 60000);
+  }).catch(() => {});
+}
+setChart("EUR/USD");
+renderHistory();
+checkAccess();
+</script>
+</body>
+</html>
