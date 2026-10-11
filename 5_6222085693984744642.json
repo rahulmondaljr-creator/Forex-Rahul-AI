@@ -1,0 +1,8 @@
+{
+  "codes": {
+    "QX-TRIAL-999":  { "plan": "TRIAL",   "days": 1 },
+    "QX-WEEK-4999":  { "plan": "WEEKLY",  "days": 7 },
+    "QX-MONTH-9999": { "plan": "MONTHLY", "days": 30 },
+    "QX-AMIT-4521":  { "plan": "MONTHLY", "days": 30 }
+  }
+}
