@@ -1,0 +1,13 @@
+{
+  "name": "RAHUL QX PRO — Live Signals",
+  "short_name": "QX PRO",
+  "description": "Live Quotex signal dashboard — RAHUL QX PRO Premium",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
